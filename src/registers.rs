@@ -268,9 +268,9 @@ pub struct IoIn {
 pub struct OtpProg {
     pub otpbit: B3,
     pub otpbyte: B2,
-    #[skip] __: B3,
+    #[skip] _fill1: B3,
     pub otpmagic: u8,
-    #[skip] _fill: B16,
+    #[skip] _fill2: B16,
 }
 
 /// OTPREAD
@@ -283,7 +283,7 @@ pub struct OtpRead {
     pub otp_s2_level: bool,
     pub otp_bbm: bool,
     pub otp_tbl: bool,
-    #[skip] _fill: B24,
+    #[skip] _fill1: B24,
 }
 
 /// SHORT_CONF
@@ -293,9 +293,9 @@ pub struct OtpRead {
 #[derive(ToValue)]
 pub struct ShortConf {
     pub s2vs_level: B4,
-    #[skip] _a: B4,
+    #[skip] _fill1: B4,
     pub s2g_level: B4,
-    #[skip] _b: B4,
+    #[skip] _fill2: B4,
     pub shortfilter: B2,
     pub shortdelay: bool,
     #[skip] _fill: B13,
@@ -309,23 +309,24 @@ pub struct ShortConf {
 pub struct DrvConf {
     /// "Break Before Make" duration specified in ns (0 to 24)
     pub bbm_time: B4,
-    #[skip] _a: B4,
+    #[skip] _fill1: B4,
     /// "Break Before Make" duration specified in clock cycles (0 to 15).
     pub bbm_clks: B4,
-    #[skip] _b: B4,
+    #[skip] _fill2: B4,
     /// over temperature selection
     pub ots_select: B2,
     /// MOSFET gate driver current (0 to 3)
     pub drv_strength: B2,
     /// filter time constant
     pub filt_isense: B2,
-    #[skip] _fill: B10,
+    #[skip] _fill3: B10,
 }
 
 /// OFFSET_READ
 #[derive(Clone, Copy)]
 #[allow(dead_code)]
 #[bitfield]
+#[derive(ToValue)]
 pub struct OffsetRead {
     pub phase_a: u8,
     pub phase_b: u8,
@@ -340,14 +341,14 @@ pub struct OffsetRead {
 pub struct IHoldIRun {
     /// motor hold current
     pub i_hold: B5,
-    #[skip] _a: B3,
+    #[skip] _fill1: B3,
     /// motor run current
     pub i_run: B5,
-    #[skip] _b: B3,
+    #[skip] _fill2: B3,
     /// number of clock cycles after motion
     pub i_hold_delay: B4,
-    #[skip] _c: B4,
-    #[skip] _d: B8,
+    #[skip] _fill3: B4,
+    #[skip] _fill4: B8,
 }
 
 /// RAMPMODE Register
@@ -382,7 +383,7 @@ pub struct SwMode {
     pub en_latch_encoder: bool,
     pub sg_stop: bool,
     pub en_softstop: bool,
-    #[skip] _fill: B20,
+    #[skip] _fill1: B20,
 }
 
 
@@ -406,7 +407,7 @@ pub struct RampStat {
     pub t_zerowait_active: bool,
     pub second_move: bool,
     pub status_sg: bool,
-    #[skip] _fill: B18,
+    #[skip] _fill1: B18,
 }
 
 
@@ -427,7 +428,7 @@ pub struct EncMode {
     pub clr_enc_x: bool,
     pub latch_x_act: bool,
     pub enc_sel_decimal: bool,
-    #[skip] _fill: B21,
+    #[skip] _fill1: B21,
 }
 
 /// ENC_STATUS Register
@@ -438,7 +439,7 @@ pub struct EncMode {
 pub struct EncStatus {
     pub n_event: bool,
     pub deviation_warn: bool,
-    #[skip] _fill: B30,
+    #[skip] _fill1: B30,
 }
 
 
@@ -468,10 +469,10 @@ pub struct ChopConf {
     pub hend: B4,
     pub fd3: bool,
     pub disfdcc: bool,
-    #[skip] _a: B1,
+    #[skip] _fill1: B1,
     pub chm: bool,
     pub tbl: B2,
-    #[skip] _b: B1,
+    #[skip] _fill2: B1,
     pub vhighfs: bool,
     pub vhighchm: bool,
     pub tpfd: B4,
@@ -489,17 +490,17 @@ pub struct ChopConf {
 #[derive(ToValue)]
 pub struct CoolConf {
     pub semin: B4,
-    #[skip] _a: B1,
+    #[skip] _fill1: B1,
     pub seup: B2,
-    #[skip] _b: B1,
+    #[skip] _fill2: B1,
     pub semax: B4,
-    #[skip] _c: B1,
+    #[skip] _fill3: B1,
     pub sedn: B2,
     pub seimin: bool,
     pub sgt: B7,
-    #[skip] _d: B1,
+    #[skip] _fill4: B1,
     pub sfilt: bool,
-    #[skip] _e: B7,
+    #[skip] _fill5: B7,
 }
 
 /// PWMCONF Register
@@ -514,7 +515,7 @@ pub struct PwmConf {
     pub pwm_autoscale: bool,
     pub pwm_autograd: bool,
     pub free_wheel: B2,
-    #[skip] __: B2,
+    #[skip] _fill1: B2,
     pub pwm_reg: B4,
     pub pwm_lim: B4,
 }
@@ -526,10 +527,10 @@ pub struct PwmConf {
 #[derive(ToValue)]
 pub struct PwmScale {
     pub pwm_scale_sum: u8,
-    #[skip] __: B8,
+    #[skip] _fill1: B8,
     pub pwm_scale_auto_sign: bool,
     pub pwm_scale_auto: u8,
-    #[skip] __: B7,
+    #[skip] _fill2: B7,
 }
 
 /// PWM_AUTO Register
@@ -539,7 +540,7 @@ pub struct PwmScale {
 #[derive(ToValue)]
 pub struct PwmAuto {
     pub pwm_ofs_auto: u8,
-    #[skip] __: B8,
+    #[skip] _fill1: B8,
     pub pwm_grad_auto: u8,
-    #[skip] __: B8,
+    #[skip] _fill2: B8,
 }

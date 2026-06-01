@@ -15,15 +15,24 @@ readme = "README.md"
 license = "Apache-2.0"
 
 [dependencies]
-modular-bitfield = "0.13.1"
-modular-bitfield-to-value = { git = "https://github.com/sebastianbergt/modular-bitfield-to-value" }
+#modular-bitfield = "0.13.1"
+# need a version with `defmt` support.
+modular-bitfield = { git = "https://github.com/makerpnp/modular-bitfield", rev = "db61b82052990068f32f59d3ed187647159556db", features = ["defmt"] }
+#modular-bitfield = { path = "../modular-bitfield", features = ["defmt"] }
+modular-bitfield-to-value = { git = "https://github.com/makerpnp/modular-bitfield-to-value", branch = "makerpnp" }
+#modular-bitfield-to-value = { path = "../modular-bitfield-to-value" }
+defmt = { version = "1.0.1", optional = true }
 
 [dependencies.embedded-hal]
 version = "1.0.0"
 
 [features]
-default = []
+default = ["defmt"]
 std = []
+defmt = [
+    "modular-bitfield/defmt",
+    "dep:defmt",
+]
 
 [profile.dev]
 incremental = false

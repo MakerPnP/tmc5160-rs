@@ -38,6 +38,7 @@ pub const MODE: Mode = Mode {
 };
 
 #[derive(Debug)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 /// Error type for the TMC5160
 pub enum Error<E> {
     /// SPI bus/device error
@@ -61,6 +62,7 @@ impl<E: fmt::Display> fmt::Display for Error<E> {
 impl<E> StdError for Error<E> where E: StdError + 'static {}
 
 /// Data Exchange packet
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub struct DataPacket {
     /// Status returned from last communication
     pub status: SpiStatus,
