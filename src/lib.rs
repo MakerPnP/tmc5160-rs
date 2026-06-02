@@ -475,11 +475,18 @@ where
         Ok(RampStat::from_bytes(packet.data.to_le_bytes()))
     }
 
-    /// read IoIn register
+    /// read IOIN register
     pub fn read_ioin(&mut self) -> Result<IoIn, Error<E>> {
         let packet = self.read_register(Registers::IOIN)?;
         self.status = packet.status;
         Ok(IoIn::from_bytes(packet.data.to_le_bytes()))
+    }
+
+    /// read CHOP_CONF register
+    pub fn read_chop_conf(&mut self) -> Result<ChopConf, Error<E>> {
+        let packet = self.read_register(Registers::CHOPCONF)?;
+        self.status = packet.status;
+        Ok(ChopConf::from_bytes(packet.data.to_le_bytes()))
     }
 
     /// read ENC_STATUS register
